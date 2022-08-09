@@ -7,8 +7,8 @@ from sklearn.svm import SVC
 
 from time import time
 
-HAAR_MODEL = '/Volumes/HDD/Rubina/AU 4th sem/ML/project/public/python/model-haar/haarcascade_frontalface_default.xml'
-ANN_MODEL = '/Volumes/HDD/Rubina/AU 4th sem/ML/project/public/python/model-ann/gender-classify-v1.lib'
+HAAR_MODEL = './model-haar/haarcascade_frontalface_default.xml'
+ANN_MODEL = './model-ann/gender-classify-v1.lib'
 
 font1 = cv2.FONT_HERSHEY_TRIPLEX
 font2 = cv2.FONT_HERSHEY_SIMPLEX
@@ -46,7 +46,7 @@ while True:
             face_resized = cv2.resize(face,(256,256), interpolation=cv2.INTER_LINEAR)
             testset.append(np.ravel(face_resized))
 
-            pca = load('/Volumes/HDD/Rubina/AU 4th sem/ML/project/public/python/model-ann/pca.lib')
+            pca = load('./model-ann/pca.lib')
             features = pca.transform(testset)
 
             pred = str(classifier.predict(features))

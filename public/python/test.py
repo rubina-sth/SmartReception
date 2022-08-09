@@ -10,23 +10,23 @@ from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.neural_network import MLPClassifier
  
-HAAR_MODEL = '/Volumes/HDD/Rubina/AU 4th sem/ML/project/public/python/model-haar/haarcascade_frontalface_default.xml'
+HAAR_MODEL = './model-haar/haarcascade_frontalface_default.xml'
 
-# mainDir = 'D:\Rubina\AU 4th sem\ML\project\public'
+mainDir = './public'
 
-INPUT_IMAGE_PATH = '/Volumes/HDD/Rubina/AU 4th sem/ML/project/public/images'
+INPUT_IMAGE_PATH = '../images'
 
-OUTPUT_CSV_FILE = '/Volumes/HDD/Rubina/AU 4th sem/ML/project/public/extra/images.csv'
+OUTPUT_CSV_FILE = '../extra/images.csv'
 
-PROCESSED_IMAGE_PATH = '/Volumes/HDD/Rubina/AU 4th sem/ML/project/public/extra/prc-faces'
+PROCESSED_IMAGE_PATH = '../extra/prc-faces'
 
-PROCESSED_CSV_FILE = '/Volumes/HDD/Rubina/AU 4th sem/ML/project/public/extra/prc-faces.csv'
+PROCESSED_CSV_FILE = '../extra/prc-faces.csv'
 
-DETECTED_FACE_PATH = '/Volumes/HDD/Rubina/AU 4th sem/ML/project/public/extra/crp-faces'
+DETECTED_FACE_PATH = '../extra/crp-faces'
 
-DETECTED_CSV_FILE = '/Volumes/HDD/Rubina/AU 4th sem/ML/project/public/extra/crp-faces.csv'
+DETECTED_CSV_FILE = '../extra/crp-faces./sv'
 
-OUTPUT_MODEL_NAME = '/Volumes/HDD/Rubina/AU 4th sem/ML/project/public/python/model-ann/gender-classify-v1.lib'
+OUTPUT_MODEL_NAME = './model-ann/gender-classify-v1.lib'
 
  
 def create_csv(dataset_path, output_csv):
@@ -139,7 +139,7 @@ def train_model(train_csv, output_model_name):
  
     pca = PCA()
     features = pca.fit_transform(images)
-    dump(pca, '/Volumes/HDD/Rubina/AU 4th sem/ML/project/public/python/model-ann/pca.lib')
+    dump(pca, './model-ann/pca.lib')
  
     # plt.scatter(features[:, 0], features[:, 1], c=labels, s=30, cmap=plt.cm.Paired)
     # plt.show()
@@ -166,7 +166,7 @@ def validate_model(validate_csv, model_name):
         resized = cv2.resize(image, (256,256), interpolation=cv2.INTER_LINEAR)
         images.append(np.ravel(resized))
  
-    pca = load('/Volumes/HDD/Rubina/AU 4th sem/ML/project/public/python/model-ann/pca.lib')
+    pca = load('./model-ann/pca.lib')
     features = pca.transform(images)
     clf = load(model_name)
     y_p = cross_val_predict(clf, features, labels, cv=3)
@@ -181,3 +181,4 @@ process_image(OUTPUT_CSV_FILE, PROCESSED_CSV_FILE, PROCESSED_IMAGE_PATH)
 detect_face(PROCESSED_CSV_FILE, DETECTED_CSV_FILE, DETECTED_FACE_PATH)
 train_model(DETECTED_CSV_FILE, OUTPUT_MODEL_NAME)
 validate_model(DETECTED_CSV_FILE, OUTPUT_MODEL_NAME)
+
