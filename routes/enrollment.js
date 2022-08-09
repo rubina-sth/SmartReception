@@ -18,7 +18,7 @@ router.post('/success', function (req, res, next) {
 	var s = [1, 2, 3, 4, 5];
 	img.forEach(function (item, index) {
 		var data = item.replace(/^data:image\/\w+;base64,/, "");
-		var buf = new Buffer(data, 'base64');
+		var buf = new Buffer.from(data, 'base64');
 		fs.writeFile(`./${dir}/${s[index]}.png`, buf, function (err, done) {
 			if (err) {
 				console.log(error);
